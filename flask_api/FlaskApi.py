@@ -56,24 +56,5 @@ def getBook_title(title):
     return jsonify(book)
 
 
-@app.route('/api/books/catalogue', methods=["POST", "GET"])
-def getBooks():
-    with open("books.json", "r") as read_file:
-        data = json.load(read_file)
-    # aleaBook = random.randint(0, len(data))
-    # data = json.dumps(data[aleaBook])
-    if request.method == "POST":
-        livre = request.form["idortitle"]
-        for i in range(0, len(data)):
-            if data[i]['isbn'] == livre or data[i]['title'] == livre:
-                data = json.dumps(data[i])
-                return jsonify(data)
-            else:
-                return render_template('erreurBook.html', title='Fail')
-
-    else:
-        return render_template('catalogue.html', title='Catalogue')
-
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
